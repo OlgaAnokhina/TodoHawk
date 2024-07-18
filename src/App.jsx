@@ -1,19 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import TodoList from './TodoList'
+import React, { useState } from 'react';
+import './App.css';
+import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
-
 function App() {
-  const [count, setCount] = useState(0)
+ const [count, setCount] = useState(0)
   const [newTodo, setNewTodo] = useState('');
-    return (
+  const [todoList, setTodoList] = useState([]);
+  const addTodo = (newTodo) => {
+    setTodoList([...todoList, newTodo]);  // Adds the newTodo object to the existing list
+  };
+  return (
       <div>
         <h1>Todo List</h1>
-        <AddTodoForm onAddTodo={setNewTodo}/>
+        
+        <AddTodoForm onAddTodo={addTodo}/>
+       
         <p>New Todo: {newTodo}</p>
-        <TodoList />
+         
+        <TodoList todoList={todoList}/>
+        
+
       </div>
     );
   }

@@ -1,13 +1,12 @@
 import React from 'react';
 import TodoListItem from './TodoListItem';
-
-var todoList = [
+/*var todoList = [
   { id: 1, title: 'make a homework' },
   { id: 2, title: 'play with kids' },
   { id: 3, title: 'read a book' }
-];
+];*/
 
-function TodoList() {
+function TodoList({todoList}) {
   return (
     <div>
       

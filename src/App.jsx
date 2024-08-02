@@ -1,29 +1,41 @@
-import React, { useState } from 'react';
-import './App.css';
+/*import { useState } from 'react'*/
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
 import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
+//import React, { useState } from 'react'; 
+import React, { useState, useEffect } from 'react'; // Добавляем импорт useEffect
+
+
+
+
+function useSemiPersistentState() {
+  const [todoList, setTodoList] = useState(() => {
+    const saved = localStorage.getItem('savedTodoList');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('savedTodoList', JSON.stringify(todoList));
+  }, [todoList]);
+
+  return [todoList, setTodoList];
+}
+
 function App() {
- const [count, setCount] = useState(0)
-  const [newTodo, setNewTodo] = useState('');
-  const [todoList, setTodoList] = useState([]);
+  const [todoList, setTodoList] = useSemiPersistentState();
+
   const addTodo = (newTodo) => {
-    setTodoList([...todoList, newTodo]);  // Adds the newTodo object to the existing list
+    setTodoList(prevTodoList => [...prevTodoList, newTodo]);
   };
   return (
-      <div>
-        <h1>Todo List</h1>
-        
-        <AddTodoForm onAddTodo={addTodo}/>
-       
-        <p>New Todo: {newTodo}</p>
-         
-        <TodoList todoList={todoList}/>
-        
-
-      </div>
-    );
-  }
-  
-
+    <div className="App">
+      <h1>TODO LIST</h1>
+      <AddTodoForm onAddTodo={addTodo}/>
+      <TodoList todoList={todoList} />
+    </div>
+  );
+}
 
 export default App

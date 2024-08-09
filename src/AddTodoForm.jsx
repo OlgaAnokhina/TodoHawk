@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import InputWithLabel from './InputWithLabel';
 function AddTodoForm({ onAddTodo }) {  // Destructure onAddTodo directly from props
   const [todoTitle, setTodoTitle] = useState('');
 
@@ -20,13 +20,11 @@ function AddTodoForm({ onAddTodo }) {  // Destructure onAddTodo directly from pr
 
   return (
     <form onSubmit={handleAddTodo}>
-      <label htmlFor="todoTitle">Title:</label>
-      <input 
-        type="text" 
-        id="todoTitle" 
-        name="title" 
-        value={todoTitle} 
-        onChange={handleTitleChange} />
+     <InputWithLabel
+     Title="Title:"
+     todoTitle={todoTitle}
+     handleTitleChange={handleTitleChange}
+     />
       <button type="submit">Add</button>
     </form>
   );
